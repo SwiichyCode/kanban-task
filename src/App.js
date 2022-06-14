@@ -2,28 +2,29 @@ import React, { useContext, useState, Fragment } from "react";
 import styled from "styled-components";
 
 import { ThemeContext } from "./styles/Theme";
+import { useFetch } from "./hooks/useFetch";
 import Sidebar from "./components/Sidebar/Sidebar";
 import Header from "./components/Header";
 import Task from "./components/Task";
 
 export default function App() {
+  const url = "http://localhost:3000/boards";
+  const { data: boards } = useFetch(url);
+
   const { theme } = useContext(ThemeContext);
   const [visible, setVisible] = useState(true);
-  const initialTask = [];
 
-  const [task, setTask] = useState(initialTask);
-
-  console.log(task.length);
   const handleToggle = () => {
     setVisible(!visible);
   };
+
   return (
     <Fragment>
       <Container className={`${theme}`}>
         <Sidebar handleToggle={handleToggle} visible={visible} />
         <div className="main">
-          <Header visible={visible} task={task} />
-          <Task task={task} />
+          <Header visible={visible} boards={boards} />
+          <Task boards={boards} />
         </div>
       </Container>
     </Fragment>

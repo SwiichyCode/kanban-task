@@ -29,6 +29,14 @@ export const SidebarBoardWrapper = styled.div`
       line-height: 19px;
       padding-left: 32px;
       cursor: pointer;
+      border-radius: 0px 100px 100px 0px;
+      background: transparent;
+      transition: all 200ms ease-in-out;
+
+      &:hover {
+        background: rgba(99, 95, 199, 0.25);
+        color: #635fc7;
+      }
     }
 
     .btnBoard {

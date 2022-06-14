@@ -1,31 +1,29 @@
-import React, { useState } from "react";
-import { SidebarBoardWrapper } from "./style";
+import React from "react";
+
 import { TbLayoutBoardSplit } from "react-icons/tb";
 
+import { useFetch } from "../../../hooks/useFetch";
+import { SidebarBoardWrapper } from "./style";
+
 export default function SidebarBoard() {
-  const itemsBoard = [
-    { text: "Platform Launch", className: "itemsBoard" },
-    { text: "Marketing Plan", className: "itemsBoard" },
-    { text: "Roadmap", className: "itemsBoard" },
-    { text: "+ Create New Board", className: "btnBoard" },
-  ];
-
-  const [items, setItems] = useState(itemsBoard);
-
-  const filteredItems = itemsBoard.filter(
-    (item) => item.className === "itemsBoard"
-  );
+  const url = "http://localhost:3000/boards";
+  const { data: boards } = useFetch(url);
 
   return (
     <SidebarBoardWrapper>
-      <h2>all boards ({filteredItems.length})</h2>
+      <h2>all boards ({boards && boards.length})</h2>
       <ul>
-        {items.map((item, index) => (
-          <li key={index} className={item.className}>
-            <TbLayoutBoardSplit size={"1.2em"} />
-            <span>{item.text}</span>
-          </li>
-        ))}
+        {boards &&
+          boards.map(({ name }, index) => (
+            <li key={index}>
+              <TbLayoutBoardSplit size={"1.2em"} />
+              <span>{name}</span>
+            </li>
+          ))}
+        <li className="btnBoard">
+          <TbLayoutBoardSplit size={"1.2em"} />
+          <span>+ Create New Board</span>
+        </li>
       </ul>
     </SidebarBoardWrapper>
   );

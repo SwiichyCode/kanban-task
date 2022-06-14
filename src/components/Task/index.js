@@ -1,11 +1,12 @@
 import React from "react";
 import EmptyTask from "./EmptyTask";
+import TaskRender from "./RenderTask";
 import { TaskWrapper } from "./style";
 
-export default function Task({ task }) {
+export default function Task({ boards }) {
   return (
     <TaskWrapper>
-      {task.length >= 1 ? <span>notEmpty</span> : <EmptyTask />}
+      {boards && boards.length >= 1 ? <TaskRender /> : <EmptyTask />}
     </TaskWrapper>
   );
 }
