@@ -1,19 +1,45 @@
-import React from "react";
+import React, { useContext, useState, Fragment } from "react";
 import styled from "styled-components";
 
-import Sidebar from "./Components/Desktop/Sidebar/Sidebar";
-import "./styles/reset.css";
+import { ThemeContext } from "./styles/Theme";
+import Sidebar from "./components/Sidebar/Sidebar";
+import Header from "./components/Header";
+import Task from "./components/Task";
 
 export default function App() {
+  const { theme } = useContext(ThemeContext);
+  const [visible, setVisible] = useState(true);
+  const initialTask = [];
+
+  const [task, setTask] = useState(initialTask);
+
+  console.log(task.length);
+  const handleToggle = () => {
+    setVisible(!visible);
+  };
   return (
-    <Container>
-      <Sidebar />
-    </Container>
+    <Fragment>
+      <Container className={`${theme}`}>
+        <Sidebar handleToggle={handleToggle} visible={visible} />
+        <div className="main">
+          <Header visible={visible} task={task} />
+          <Task task={task} />
+        </div>
+      </Container>
+    </Fragment>
   );
 }
 
 export const Container = styled.div`
+  position: relative;
   display: flex;
   width: 100%;
   height: 100vh;
+
+  .main {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
 `;

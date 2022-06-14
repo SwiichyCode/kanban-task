@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { SidebarBoardWrapper } from "./SidebarBoardStyle";
+import { SidebarBoardWrapper } from "./style";
 import { TbLayoutBoardSplit } from "react-icons/tb";
 
 export default function SidebarBoard() {
@@ -15,6 +15,7 @@ export default function SidebarBoard() {
   const filteredItems = itemsBoard.filter(
     (item) => item.className === "itemsBoard"
   );
+
   return (
     <SidebarBoardWrapper>
       <h2>all boards ({filteredItems.length})</h2>
