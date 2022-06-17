@@ -1,8 +1,10 @@
-import React, { useContext, useState, Fragment } from "react";
+import React, { useContext, Fragment } from "react";
 import styled from "styled-components";
 
 import { ThemeContext } from "./styles/Theme";
 import { useFetch } from "./hooks/useFetch";
+import { useModal } from "./hooks/useModal";
+import { useSidebar } from "./hooks/useSidebar";
 import Sidebar from "./components/Sidebar/Sidebar";
 import Header from "./components/Header";
 import Task from "./components/Task";
@@ -10,20 +12,21 @@ import Task from "./components/Task";
 export default function App() {
   const url = "http://localhost:3000/boards";
   const { data: boards } = useFetch(url);
-
   const { theme } = useContext(ThemeContext);
-  const [visible, setVisible] = useState(true);
-
-  const handleToggle = () => {
-    setVisible(!visible);
-  };
+  const { isShowing, toggle } = useModal(false);
+  const { isVisible, toggleBar } = useSidebar(true);
 
   return (
     <Fragment>
       <Container className={`${theme}`}>
-        <Sidebar handleToggle={handleToggle} visible={visible} />
+        <Sidebar isVisible={isVisible} toggleBar={toggleBar} />
         <div className="main">
-          <Header visible={visible} boards={boards} />
+          <Header
+            boards={boards}
+            isVisible={isVisible}
+            isShowing={isShowing}
+            toggle={toggle}
+          />
           <Task boards={boards} />
         </div>
       </Container>

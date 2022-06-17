@@ -133,3 +133,8 @@ button {
   font-family: "Plus Jakarta Sans", sans-serif;
   padding: 0;
 }
+input,
+textarea {
+  font-family: "Plus Jakarta Sans", sans-serif;
+  outline: none;
+}

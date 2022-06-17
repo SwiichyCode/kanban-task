@@ -8,11 +8,11 @@ import SidebarVisibility from "../SidebarVisibility";
 import { SidebarWrapper } from "./style";
 import SidebarShow from "../SidebarShow";
 
-export default function Sidebar({ handleToggle, visible }) {
+export default function Sidebar({ isVisible, toggleBar }) {
   return (
     <>
-      {visible ? (
-        <SidebarWrapper className={`${visible ? "" : "hide"}`}>
+      {isVisible ? (
+        <SidebarWrapper className={`${isVisible ? "" : "hide"}`}>
           <div className="sidebar-top">
             <SidebarLogo />
             <SidebarBoard />
@@ -21,11 +21,11 @@ export default function Sidebar({ handleToggle, visible }) {
             <div className="content-theme">
               <SidebarTheme />
             </div>
-            <SidebarVisibility handleToggle={handleToggle} />
+            <SidebarVisibility handleToggle={toggleBar} />
           </div>
         </SidebarWrapper>
       ) : (
-        <SidebarShow handleToggle={handleToggle} />
+        <SidebarShow handleToggle={toggleBar} />
       )}
     </>
   );
